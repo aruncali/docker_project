@@ -1,0 +1,57 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+Description: to create the ec2 with securitygroup
+
+Resources:
+  MySecuritGroupec2:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: allow to ssh and http acess
+      SecurityGroupIngress:
+        
+       - IpProtocol: tcp
+         FromPort: 22
+         ToPort: 22
+         CidrIp: 0.0.0.0/0
+         
+       - IpProtocol: tcp
+         FromPort: 80
+         ToPort: 80
+         CidrIp: 0.0.0.0/0
+        
+      Tags:
+        - Key: NAME 
+          Value: cloudformation
+
+  MyEc2Instanceproject:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-0b6d9d3d33ba97d99
+      InstanceType: t3.micro
+      KeyName: vpc2
+       
+      SecurityGroupIds:
+        - !GetAtt MySecuritGroupec2.GroupId
+
+      Tags:
+        - Key: NAME
+          Value: ec2 instane for project
+        - Key: environment
+          Value: interproject
+
+Outputs:
+  ec2instanceid:
+    Description: ec2 instance id 
+    Value: !Ref MyEc2Instanceproject
+
+  ec2instanceip:
+    Description: instance ip
+    Value: !GetAtt MyEc2Instanceproject.PublicIp
+
+  securitygroupid:
+    Description: security group id
+    Value: !GetAtt MySecuritGroupec2.GroupId 
+      
+
+        
+        
