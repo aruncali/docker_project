@@ -1,0 +1,18 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo "Starting AWS CodeBuild..."
+      - echo "Checking Docker..."
+      - docker --version
+
+  build:
+    commands:
+      - echo "Building Docker image..."
+      - docker build -t devops-aws-htmlpages:v2 .
+
+  post_build:
+    commands:
+      - echo "Docker image build completed."
+      - echo "CodeBuild process completed."
