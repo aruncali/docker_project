@@ -12,7 +12,7 @@ phases:
     commands:
       - echo "===== BUILD ====="
       - echo "Building Docker image..."
-      - docker build -t devops-app:latest .
+      - docker build -t devops_codebuild:latest .
 
   post_build:
     commands:
